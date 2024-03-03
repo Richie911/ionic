@@ -1,0 +1,6 @@
+name: Flow
+on:
+    push:
+    pull_request: 
+        - main
+    workflow_dispatch: 
