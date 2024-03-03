@@ -42,9 +42,10 @@ jobs:
 
     - name: Build Android
       run: |
-        yes | sdkmanager --licenses
-        ionic cordova platform add android
-        ionic cordova build android
+          npm run build
+          npx cap open android
+          npx cap run android
+          
 
   ios:
     needs: build
