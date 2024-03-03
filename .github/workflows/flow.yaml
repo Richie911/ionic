@@ -1,6 +1,65 @@
-name: Flow
+name: Build and Test
+
 on:
-    push:
-    pull_request: 
-        - main
-    workflow_dispatch: 
+  push:
+  pull_request:
+      branches: 
+            - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Ionic project
+      run: npm run build
+
+  android:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Build Android
+      run: |
+        yes | sdkmanager --licenses
+        ionic cordova platform add android
+        ionic cordova build android
+
+  ios:
+    needs: build
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Xcode
+      uses: actions/setup-xcode@v2
+      with:
+        xcode-version: '13'
+
+    - name: Build iOS
+      run: |
+        ionic cordova platform add ios
+        ionic cordova build ios
