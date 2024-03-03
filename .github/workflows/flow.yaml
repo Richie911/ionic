@@ -49,8 +49,8 @@ jobs:
             node-version: '18'
         - name: Install Chrome
           uses: browser-actions/setup-chrome@v1
-          with:
-            chrome-version: 120
+        - run: chrome --version
         - name: Install dependencies
           run: npm install
+        - name: Run Test
         - run: npm run test
