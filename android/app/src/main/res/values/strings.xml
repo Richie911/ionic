@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">devop</string>
+    <string name="title_activity_main">devop</string>
+    <string name="package_name">ionic.devop</string>
+    <string name="custom_url_scheme">ionic.devop</string>
+</resources>
