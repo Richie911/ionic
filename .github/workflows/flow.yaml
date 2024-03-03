@@ -39,13 +39,22 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: '11'
+        
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
 
     - name: Build Android
+      run: npm run build
+      
+    - name: Run Android
       run: |
-          npm run build
           npx cap open android
           npx cap run android
-          
 
   ios:
     needs: build
