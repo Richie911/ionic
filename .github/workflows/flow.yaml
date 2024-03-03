@@ -25,51 +25,13 @@ jobs:
 
     - name: Build Ionic project
       run: npm run build
-
-  android:
-    needs: build
+  test:
     runs-on: ubuntu-latest
-
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'adopt'
-        java-version: '11'
-        
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build Android
-      run: npm run build
-      
-    - name: Run Android
-      run: |
-          npx cap open android
-          npx cap run android
-
-  ios:
-    needs: build
-    runs-on: macos-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Install Xcode
-      uses: actions/setup-xcode@v2
-      with:
-        xcode-version: '13'
-
-    - name: Build iOS
-      run: |
-        ionic cordova platform add ios
-        ionic cordova build ios
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 12.x
+      - run: npm ci
+      - run: npm test
