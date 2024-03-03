@@ -29,9 +29,21 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v4
         with:
-          node-version: 12.x
-      - run: npm ci
-      - run: npm test
+          node-version: '18'
+      - run: npm run test
+  lint:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js environment
+          uses: actions/setup-node@v4
+          with:
+            node-version: '18'
+        - run: npm run lint
+        
